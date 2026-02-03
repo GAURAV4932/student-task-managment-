@@ -4,35 +4,15 @@ import "./Login.css";
 
 const Login = () => {
   const navigate = useNavigate();
-
   const [loginData, setLoginData] = useState({
     email: "",
     password: "",
   });
 
   const [errors, setErrors] = useState({});
-  const [loginError, setLoginError] = useState("");
 
-  // validation
-  const validate = () => {
-    const newErrors = {};
-
-    if (!loginData.email.trim()) {
-      newErrors.email = "Email is required";
-    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(loginData.email)) {
-      newErrors.email = "Invalid email format";
-    }
-
-    if (!loginData.password.trim()) {
-      newErrors.password = "Password is required";
-    }
-
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
-  };
-
-  // input change
-  const handleChange = (e) => {
+ 
+  const handleInputChange = (e) => {
     setLoginData({
       ...loginData,
       [e.target.name]: e.target.value,
@@ -42,68 +22,80 @@ const Login = () => {
       ...errors,
       [e.target.name]: "",
     });
-
-    setLoginError("");
   };
 
-  // submit
+
+  const validate = () => {
+    const newErrors = {};
+
+    if (!loginData.email.trim()) {
+      newErrors.email = "Email is required.";
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(loginData.email)) {
+      newErrors.email = "Email is invalid";
+    }
+
+    if (!loginData.password.trim()) {
+      newErrors.password = "Password is required.";
+    } else if (loginData.password.length < 6) {
+      newErrors.password = "Minimum 6 characters required";
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (!validate()) return;
-
-    const storedUser = JSON.parse(localStorage.getItem("authData"));
-
-    if (!storedUser) {
-      setLoginError("No account found. Please register first.");
-      return;
+    if (validate()) {
+      const user = JSON.parse(localStorage.getItem("authData"));
+      if(user && loginData.email === user.email && loginData.password ===user.password){
+        localStorage.setItem("loginData",JSON.stringify(loginData));
+      navigate("/Dashboard")
     }
-
-    if (
-      loginData.email === storedUser.email &&
-      loginData.password === storedUser.password
-    ) {
-      localStorage.setItem("LoginData", JSON.stringify(storedUser));
-
-      alert("Login Successful");
-      navigate("/Dashboard");
-    } else {
-      setLoginError("Invalid email or password");
+     
+    else{
+      alert('invalid email or password')
     }
-  };
-
+  }
+  else{
+    alert('Somthing went wrong!')
+  }
+}
   return (
     <div className="form-container">
-      <h1 className="form-title">Welcome Back</h1>
+      <h1 className="form-title">LOGIN</h1>
 
       <form onSubmit={handleSubmit}>
         {/* Email */}
         <div className="form-group">
-          <label>Email</label>
+          <label htmlFor="email">Email Address</label>
           <input
             type="email"
+            id="email"
             name="email"
             value={loginData.email}
-            onChange={handleChange}
-            placeholder="Enter email"
+            placeholder="Enter your email"
+            onChange={handleInputChange}
           />
           {errors.email && <span className="error">{errors.email}</span>}
         </div>
 
         {/* Password */}
         <div className="form-group">
-          <label>Password</label>
+          <label htmlFor="password">Password</label>
           <input
             type="password"
+            id="password"
             name="password"
             value={loginData.password}
-            onChange={handleChange}
-            placeholder="Enter password"
+            placeholder="Enter your password"
+            onChange={handleInputChange}
           />
-          {errors.password && <span className="error">{errors.password}</span>}
+          {errors.password && (
+            <span className="error">{errors.password}</span>
+          )}
         </div>
-
-        {loginError && <p className="error">{loginError}</p>}
 
         <button type="submit" className="btn-primary">
           Login
@@ -111,7 +103,7 @@ const Login = () => {
       </form>
 
       <p className="link-text">
-        Don’t have an account? <a href="/register">Register here</a>
+        Don't have an account? <a href="/Register">Register here</a>
       </p>
     </div>
   );

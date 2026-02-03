@@ -8,6 +8,7 @@ import Login from "./pages/Login.jsx";
 import { createBrowserRouter, Router, RouterProvider } from "react-router-dom";
 import { Navigate } from "react-router-dom";
 import Dashboard from "./pages/Dashboard.jsx";
+import AuthGuard from "./auth/AuthGuard.jsx";
 
 const DefaultRouter = () => {
   const authData = JSON.parse(localStorage.getItem("loginData"));
@@ -24,16 +25,22 @@ function App() {
     },
     {
       path: "/Login",
-      element: <Login />,
+      element: <AuthGuard required={false}>
+      <Login />
+      </AuthGuard>
     },
     {
       path: "/Register",
-      element: <Register />,
+      element: <AuthGuard required={false}>
+      <Register />
+      </AuthGuard>
     },
 
     {
       path: "/dashboard",
-      element: <Dashboard />,
+      element: <AuthGuard required={true}>
+      <Dashboard />
+      </AuthGuard>
     }
   ]);
 
