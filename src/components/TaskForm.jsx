@@ -129,7 +129,7 @@ const TaskForm = ({ addTask }) => {
               className="btn-secondary"
               style={{ flex: 1 }}
               onClick={handleClear}
-            >
+            > 
               Clear
             </button>
           </div>

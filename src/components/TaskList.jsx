@@ -3,6 +3,7 @@ import { useEffect } from "react";
 const TaskList = ({ tasks }) => {
   useEffect(() => {
     console.log(tasks);
+    
   }, []);
   return (
     <>
@@ -10,7 +11,7 @@ const TaskList = ({ tasks }) => {
         {tasks.map((task) => (
           <div className="task-card" style={{ position: "relative" }}>
             <h3>{task.title}</h3>
-            <p>{task.description}</p>
+            <p>{task.description}</p> ⭐⭐⭐
 
             <div className="task-meta">
               <span>Due: {task.dueDate}</span>
