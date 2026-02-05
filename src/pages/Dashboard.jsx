@@ -8,20 +8,20 @@ const Dashboard = () =>{
  const navigate = useNavigate()
  const [tasks, setTasks] = useState([])
 
- useEffect(()=>{
-  fetchData();
- },[])
  
   const fetchData = async() => {
     try{
       const response=await fetch("http://localhost:3000/tasks");
-      const data  = response.json();
+      const data  = await response.json();
       setTasks(data);
     }catch(error){
       console.log(error)
     }
   };
 
+ useEffect(()=>{
+  fetchData();
+ },[])
  
   const handleLogout = () =>{
     localStorage.removeItem('loginData')
@@ -34,9 +34,11 @@ const Dashboard = () =>{
     <Navbar title= " Task Manager" onLogout={handleLogout}/>
       <h1>My Task 
       </h1>
-      <TaskList/>
+      <TaskList tasks ={tasks}/>
     </div>
-  )
 
+
+  )
+ 
 }
 export default Dashboard

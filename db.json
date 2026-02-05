@@ -8,6 +8,22 @@
         "dueDate":"2025-09-31",
         "completed":false,
         "priority":"medium"
+      },
+      {
+        "id":"2",
+        "title":"welcome Task",
+        "description":"this is your task served from json server",
+        "dueDate":"2025-09-31",
+        "completed":false,
+        "priority":"medium"
+      },
+      {
+        "id":"3",
+        "title":"welcome Task",
+        "description":"this is your task served from json server",
+        "dueDate":"2025-09-31",
+        "completed":false,
+        "priority":"medium"
       }
    ]
 }
