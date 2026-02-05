@@ -12,36 +12,42 @@ import AuthGuard from "./auth/AuthGuard.jsx";
 
 const DefaultRouter = () => {
   const authData = JSON.parse(localStorage.getItem("loginData"));
-  if(authData){
-  return<Navigate to = "/dashboard" replace/>;
+  if (authData) {
+    return <Navigate to="/dashboard" replace />;
   }
-  return <Navigate to = "/login" replace/>;
-}
+  return <Navigate to="/login" replace />;
+};
 function App() {
   const route = createBrowserRouter([
     {
       path: "/",
-      element: <DefaultRouter/>
+      element: <DefaultRouter />,
     },
     {
       path: "/Login",
-      element: <AuthGuard required={false}>
-      <Login />
-      </AuthGuard>
+      element: (
+        <AuthGuard required={false}>
+          <Login />
+        </AuthGuard>
+      ),
     },
     {
       path: "/Register",
-      element: <AuthGuard required={false}>
-      <Register />
-      </AuthGuard>
+      element: (
+        <AuthGuard required={false}>
+          <Register />
+        </AuthGuard>
+      ),
     },
 
     {
       path: "/dashboard",
-      element: <AuthGuard required={true}>
-      <Dashboard />
-      </AuthGuard>
-    }
+      element: (
+        <AuthGuard required={true}>
+          <Dashboard />
+        </AuthGuard>
+      ),
+    },
   ]);
 
   return <RouterProvider router={route} />;

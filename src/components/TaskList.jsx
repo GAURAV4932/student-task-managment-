@@ -1,9 +1,9 @@
 import { useEffect } from "react";
 
 const TaskList = ({ tasks }) => {
-useEffect(()=>{
-  console.log(tasks);
-},[]);
+  useEffect(() => {
+    console.log(tasks);
+  }, []);
   return (
     <>
       <div className="task-grid">
@@ -14,7 +14,9 @@ useEffect(()=>{
 
             <div className="task-meta">
               <span>Due: {task.dueDate}</span>
-              <span className="priority-badge priority-high">{task.priority}</span>
+              <span className="priority-badge priority-high">
+                {task.priority}
+              </span>
             </div>
 
             <div className="task-actions">

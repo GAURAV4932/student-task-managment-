@@ -11,7 +11,7 @@ const Register = () => {
     phone: "",
   });
   const [errors, setErrors] = useState({});
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   // logic section
 
@@ -61,9 +61,9 @@ const Register = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (validate()) {
-      localStorage.setItem('authData',JSON.stringify(formData))
-      alert('Registration Successful...!')
-      navigate('/Login')
+      localStorage.setItem("authData", JSON.stringify(formData));
+      alert("Registration Successful...!");
+      navigate("/Login");
     }
   };
 
