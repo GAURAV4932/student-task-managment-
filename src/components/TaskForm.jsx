@@ -9,9 +9,9 @@ const TaskForm = ({ addTask, updateTask, editingTask }) => {
   });
 
   const [errors, setErrors] = useState({});
-  useEffect(()=>{
-    setFormData(editingTask)
-  },[editingTask])
+  useEffect(() => {
+    setFormData(editingTask);
+  }, [editingTask]);
 
   const handleInputChange = (e) => {
     setFormData({
@@ -47,16 +47,14 @@ const TaskForm = ({ addTask, updateTask, editingTask }) => {
     e.preventDefault();
 
     if (validate()) {
-      if(editingTask){
+      if (editingTask) {
         updateTask(formData);
-         alert("Task UpdateTask successfully")
-      }
-      else{
+        alert("Task UpdateTask successfully");
+      } else {
         addTask(formData);
-        alert("Task AddTask successfully")
-        handleClear()
+        alert("Task AddTask successfully");
+        handleClear();
       }
-    
     }
   };
 
@@ -73,7 +71,9 @@ const TaskForm = ({ addTask, updateTask, editingTask }) => {
   return (
     <>
       <div className="add-task-card">
-        <h2 style={{ marginBottom: "15px" }}>{editingTask ?'Update ': 'Add '}New Task</h2>
+        <h2 style={{ marginBottom: "15px" }}>
+          {editingTask ? "Update " : "Add "}New Task
+        </h2>
         <form onSubmit={handleSubmit}>
           <div>
             <input
@@ -126,9 +126,8 @@ const TaskForm = ({ addTask, updateTask, editingTask }) => {
             className="form-actions"
             style={{ display: "flex", gap: "10px", marginTop: "10px" }}
           >
-
-            <button type="submit" className="btn-primary" style={{ flex:1 }}>
-            {editingTask ?'Update ': 'Add '}Task
+            <button type="submit" className="btn-primary" style={{ flex: 1 }}>
+              {editingTask ? "Update " : "Add "}Task
             </button>
 
             <button

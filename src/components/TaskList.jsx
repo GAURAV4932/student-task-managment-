@@ -1,15 +1,15 @@
-const TaskList = ({ tasks, editingTask,deletingTask }) => {
+const TaskList = ({ tasks, editingTask, deletingTask }) => {
   const handleEditClick = (task) => {
     editingTask(task);
   };
-   const handleDeleteClick = (taskId) => {
+  const handleDeleteClick = (taskId) => {
     deletingTask(taskId);
   };
   return (
     <>
       <div className="task-grid">
         {tasks.map((task) => (
-          <div  className="task-card" style={{ position: "relative" }}>
+          <div className="task-card" style={{ position: "relative" }}>
             <h3>{task.title}</h3>
             <p>{task.description}</p>
 
@@ -43,7 +43,6 @@ const TaskList = ({ tasks, editingTask,deletingTask }) => {
                 style={{ background: "#ff416c" }}
                 title="Delete Task"
                 onClick={() => handleDeleteClick(task.id)}
-                
               >
                 🗑️
               </button>

@@ -9,8 +9,6 @@ const Dashboard = () => {
   const [tasks, setTasks] = useState([]);
   const [editTask, setEditTask] = useState();
 
-  
-
   const fetchData = async () => {
     try {
       const response = await fetch("http://localhost:3000/tasks");
@@ -67,16 +65,16 @@ const Dashboard = () => {
   const editingTask = (editingTask) => {
     setEditTask(editingTask);
   };
-  const handleDeleteTask=async(id)=>{
-    try{
-      await fetch(`http://localhost:3000/tasks/${id}`,{
-        method:"DELETE"
-      })
-      setTasks(tasks.filter((task)=>task.id !==id))
-    }catch(error){
-      console.log(error)
+  const handleDeleteTask = async (id) => {
+    try {
+      await fetch(`http://localhost:3000/tasks/${id}`, {
+        method: "DELETE",
+      });
+      setTasks(tasks.filter((task) => task.id !== id));
+    } catch (error) {
+      console.log(error);
     }
-  }
+  };
 
   return (
     <div>
@@ -88,7 +86,11 @@ const Dashboard = () => {
         editingTask={editTask}
       />
       <h1>MY TASKS</h1>
-      <TaskList tasks={tasks} editingTask={editingTask}  deletingTask={handleDeleteTask}/>
+      <TaskList
+        tasks={tasks}
+        editingTask={editingTask}
+        deletingTask={handleDeleteTask}
+      />
     </div>
   );
 };
