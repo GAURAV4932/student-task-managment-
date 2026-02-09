@@ -1,6 +1,6 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
-const TaskForm = ({ addTask }) => {
+const TaskForm = ({ addTask, updateTask, editingTask }) => {
   const [formData, setFormData] = useState({
     title: "",
     description: "",
@@ -9,10 +9,12 @@ const TaskForm = ({ addTask }) => {
   });
 
   const [errors, setErrors] = useState({});
+  useEffect(()=>{
+    setFormData(editingTask)
+  },[editingTask])
 
   const handleInputChange = (e) => {
     setFormData({
-      // Changed: Fixed typo
       ...formData,
       [e.target.name]: e.target.value,
     });
@@ -26,15 +28,14 @@ const TaskForm = ({ addTask }) => {
   const validate = () => {
     const newErrors = {};
 
-    if (!formData.title.trim()) {
+    if (!formData?.title.trim()) {
       newErrors.title = "Task title is required";
     }
 
-    if (!formData.dueDate) {
+    if (!formData?.dueDate) {
       newErrors.dueDate = "Due date is required";
     }
-
-    if (!formData.description.trim()) {
+    if (!formData?.description.trim()) {
       newErrors.description = "Description is required";
     }
 
@@ -46,17 +47,21 @@ const TaskForm = ({ addTask }) => {
     e.preventDefault();
 
     if (validate()) {
-      addTask(formData); // Changed: Call addTask prop function instead of TaskForm
-      alert("Task added successfully!");
-
-      // Optional: Clear form after successful submission
-      handleClear();
+      if(editingTask){
+        updateTask(formData);
+         alert("Task UpdateTask successfully")
+      }
+      else{
+        addTask(formData);
+        alert("Task AddTask successfully")
+        handleClear()
+      }
+    
     }
   };
 
   const handleClear = () => {
     setFormData({
-      // Changed: Fixed typo
       title: "",
       description: "",
       dueDate: "",
@@ -68,13 +73,13 @@ const TaskForm = ({ addTask }) => {
   return (
     <>
       <div className="add-task-card">
-        <h2 style={{ marginBottom: "15px" }}>Add New Task</h2>
+        <h2 style={{ marginBottom: "15px" }}>{editingTask ?'Update ': 'Add '}New Task</h2>
         <form onSubmit={handleSubmit}>
           <div>
             <input
               type="text"
               name="title"
-              value={formData.title}
+              value={formData?.title}
               placeholder="Task Title"
               onChange={handleInputChange}
             />
@@ -82,8 +87,9 @@ const TaskForm = ({ addTask }) => {
           </div>
           <div>
             <textarea
-              name="description" // Changed: Removed unnecessary type="text"
-              value={formData.description}
+              type="text "
+              name="description"
+              value={formData?.description}
               placeholder="Description"
               rows="3"
               onChange={handleInputChange}
@@ -97,7 +103,7 @@ const TaskForm = ({ addTask }) => {
               <input
                 type="date"
                 name="dueDate"
-                value={formData.dueDate}
+                value={formData?.dueDate}
                 onChange={handleInputChange}
               />
               {errors.dueDate && (
@@ -107,7 +113,7 @@ const TaskForm = ({ addTask }) => {
             <div style={{ flex: 1 }}>
               <select
                 name="priority"
-                value={formData.priority}
+                value={formData?.priority}
                 onChange={handleInputChange}
               >
                 <option value="Low">Low priority</option>
@@ -120,8 +126,9 @@ const TaskForm = ({ addTask }) => {
             className="form-actions"
             style={{ display: "flex", gap: "10px", marginTop: "10px" }}
           >
-            <button type="submit" className="btn-primary" style={{ flex: 1 }}>
-              Add Task
+
+            <button type="submit" className="btn-primary" style={{ flex:1 }}>
+            {editingTask ?'Update ': 'Add '}Task
             </button>
 
             <button
@@ -129,7 +136,7 @@ const TaskForm = ({ addTask }) => {
               className="btn-secondary"
               style={{ flex: 1 }}
               onClick={handleClear}
-            > 
+            >
               Clear
             </button>
           </div>

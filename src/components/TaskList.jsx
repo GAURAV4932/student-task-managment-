@@ -1,20 +1,20 @@
-import { useEffect } from "react";
-
-const TaskList = ({ tasks }) => {
-  useEffect(() => {
-    console.log(tasks);
-    
-  }, []);
+const TaskList = ({ tasks, editingTask,deletingTask }) => {
+  const handleEditClick = (task) => {
+    editingTask(task);
+  };
+   const handleDeleteClick = (taskId) => {
+    deletingTask(taskId);
+  };
   return (
     <>
       <div className="task-grid">
         {tasks.map((task) => (
-          <div className="task-card" style={{ position: "relative" }}>
+          <div  className="task-card" style={{ position: "relative" }}>
             <h3>{task.title}</h3>
-            <p>{task.description}</p> ⭐⭐⭐
+            <p>{task.description}</p>
 
             <div className="task-meta">
-              <span>Due: {task.dueDate}</span>
+              <span>{task.dueDate}</span>
               <span className="priority-badge priority-high">
                 {task.priority}
               </span>
@@ -25,6 +25,7 @@ const TaskList = ({ tasks }) => {
                 className="btn-icon"
                 style={{ background: "#00d2ff" }}
                 title="Edit Task"
+                onClick={() => handleEditClick(task)}
               >
                 ✏️
               </button>
@@ -41,6 +42,8 @@ const TaskList = ({ tasks }) => {
                 className="btn-icon"
                 style={{ background: "#ff416c" }}
                 title="Delete Task"
+                onClick={() => handleDeleteClick(task.id)}
+                
               >
                 🗑️
               </button>

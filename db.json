@@ -3,18 +3,18 @@
     {
       "id": "1",
       "title": "welcome Task",
-      "description": "this is your task served from json server",
-      "dueDate": "2025-09-31",
+      "description": "jvjhbvljhbvk",
+      "dueDate": "2026-02-18",
       "completed": false,
-      "priority": "medium"
+      "priority": "Medium"
     },
     {
       "id": "2",
-      "title": "welcome Task",
-      "description": "this is your task served from json server",
-      "dueDate": "2025-09-31",
+      "title": "work on website",
+      "description": "make it responsive",
+      "dueDate": "2026-02-19",
       "completed": false,
-      "priority": "medium"
+      "priority": "Medium"
     },
     {
       "id": "3",
@@ -23,14 +23,6 @@
       "dueDate": "2025-09-31",
       "completed": false,
       "priority": "medium"
-    },
-    {
-      "id": "470b",
-      "title": "✔️✔️✔️✔️",
-      "description": "🪦🪦🪦🪦🪦🪦",
-      "dueDate": "2026-02-04",
-      "priority": "Low",
-      "completed": false
     }
   ]
 }
